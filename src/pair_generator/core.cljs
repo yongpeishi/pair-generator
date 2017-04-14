@@ -1,5 +1,6 @@
 (ns pair-generator.core
-  (:require [reagent.core :as reagent :refer [atom]]))
+  (:require [reagent.core :as reagent :refer [atom]]
+            [clojure.string :as str]))
 
 (enable-console-print!)
 
@@ -9,13 +10,19 @@
 
 (defonce app-state (atom {:text "Hello world"}))
 
+(defn generate-pair [input]
+  (let [input-data (shuffle (str/split input ","))
+        per-group 2
+        padding ""]
+    (partition per-group per-group [padding] input-data)))
+
 (defn root-element []
   [:div {:class "container"}
    [:h1 "Generate Pair"]
    [:p "Insert names (comma separated):"]
    [:div
     [:input {:type "text"}]
-    [:button {:type "submit"} "Generate"]]
+    [:button {:type "submit" :on-click generate-pair} "Generate"]]
    [:div {:class "result"}
     [:p "Generated Pairs:"]
     [:p "cat - dog"]]])

@@ -10,6 +10,7 @@
                  [org.clojure/clojurescript "1.9.229"]
                  [org.clojure/core.async  "0.3.442"
                   :exclusions [org.clojure/tools.reader]]
+                 [org.clojure/tools.namespace "0.2.11"]
                  [reagent "0.6.0"]]
 
   :plugins [[lein-figwheel "0.5.10"]
@@ -19,7 +20,7 @@
 
   :cljsbuild {:builds
               [{:id "dev"
-                :source-paths ["src"]
+                :source-paths ["dev" "test" "src"]
 
                 ;; the presence of a :figwheel configuration here
                 ;; will cause figwheel to inject the figwheel client
@@ -31,7 +32,7 @@
                            ;; Comment this out once it no longer serves you.
                            :open-urls ["http://localhost:3449/index.html"]}
 
-                :compiler {:main pair-generator.core
+                :compiler {:main pair-generator.core-test
                            :asset-path "js/compiled/out"
                            :output-to "resources/public/js/compiled/pair_generator.js"
                            :output-dir "resources/public/js/compiled/out"
