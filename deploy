@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+echo '======= Compile min via: `lein do clean, cljsbuild once min`'
+
+lein do clean, cljsbuild once min
+
+echo '======= Clean /docs directory'
+rm -r ./docs/*/
+
+echo '======= Copy /resources/public to /docs directory'
+
+cp -r ./resources/public ./docs
