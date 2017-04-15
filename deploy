@@ -7,6 +7,6 @@ lein do clean, cljsbuild once min
 echo '======= Clean /docs directory'
 rm -r ./docs/*/
 
-echo '======= Copy /resources/public to /docs directory'
+echo '======= Copy compiled code to /docs directory'
 
-cp -r ./resources/public ./docs
+cp -r ./resources/public/* ./docs
