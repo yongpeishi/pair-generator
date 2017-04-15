@@ -4,34 +4,52 @@
 
 (enable-console-print!)
 
-(println "This text is printed from src/pair-generator/core.cljs. Go ahead and edit it and see reloading in action.")
+(defn on-js-reload [])
 
-;; define your app data so that it doesn't get over-written on reload
-
-(defonce app-state (atom {:text "Hello world"}))
+(defonce app-state (atom {:input ""
+                          :pairs []}))
 
 (defn generate-pair [input]
-  (let [input-data (shuffle (str/split input ","))
-        per-group 2
-        padding ""]
-    (partition per-group per-group [padding] input-data)))
+  (if (str/blank? input)
+    []
+    (let [input-data (->> (str/split input ",")
+                          (map str/trim)
+                          distinct
+                          shuffle)
+          per-group  2
+          padding    "self :("]
+      (partition per-group per-group [padding] input-data))))
 
-(defn root-element []
-  [:div {:class "container"}
+(defn pure-update-pair [state]
+  (let [result (generate-pair (:input state))]
+    (assoc state :pairs result)))
+
+(defn update-pair []
+  (swap! app-state pure-update-pair))
+
+(defn update-input [event]
+  (swap! app-state assoc :input event.target.value))
+
+(defn root-element [state]
+  [:div
    [:h1 "Generate Pair"]
    [:p "Insert names (comma separated):"]
    [:div
-    [:input {:type "text"}]
-    [:button {:type "submit" :on-click generate-pair} "Generate"]]
-   [:div {:class "result"}
-    [:p "Generated Pairs:"]
-    [:p "cat - dog"]]])
+    [:input {:type "text"
+             :value (:input state)
+             :on-change update-input}]
+    [:button {:type "submit"
+              :on-click update-pair}
+     "Generate"]]
 
-(reagent/render-component [root-element]
+   (if (not-empty (:pairs state))
+     [:div.result
+      (for [pair (:pairs state)]
+        [:p {:key (hash pair)}
+         (str/join " - " pair)])])])
+
+(defn wrapper [app-state]
+  (root-element @app-state))
+
+(reagent/render-component [wrapper app-state]
                           (. js/document (getElementById "app")))
-
-(defn on-js-reload []
-  ;; optionally touch your app-state to force rerendering depending on
-  ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
-)
