@@ -1,5 +1,5 @@
-(ns pair-generator.core-test
-  (:require [pair-generator.core :as sut]
+(ns pair-generator.generator-test
+  (:require [pair-generator.generator :as sut]
             [cljs.test :refer [deftest is run-tests]]))
 
 (deftest split-input-into-group-of-2

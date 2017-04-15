@@ -1,5 +1,6 @@
 (ns pair-generator.core
   (:require [reagent.core :as reagent :refer [atom]]
+            [pair-generator.generator :refer [generate-pair]]
             [clojure.string :as str]))
 
 (enable-console-print!)
@@ -8,17 +9,6 @@
 
 (defonce app-state (atom {:input ""
                           :pairs []}))
-
-(defn generate-pair [input]
-  (if (str/blank? input)
-    []
-    (let [input-data (->> (str/split input ",")
-                          (map str/trim)
-                          distinct
-                          shuffle)
-          per-group  2
-          padding    "self :("]
-      (partition per-group per-group [padding] input-data))))
 
 (defn pure-update-pair [state]
   (let [result (generate-pair (:input state))]

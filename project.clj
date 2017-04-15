@@ -32,7 +32,7 @@
                            ;; Comment this out once it no longer serves you.
                            :open-urls ["http://localhost:3449/index.html"]}
 
-                :compiler {:main pair-generator.core-test
+                :compiler {:main pair-generator.generator-test
                            :asset-path "js/compiled/out"
                            :output-to "resources/public/js/compiled/pair_generator.js"
                            :output-dir "resources/public/js/compiled/out"
