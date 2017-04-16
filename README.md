@@ -1,6 +1,7 @@
 # pair-generator
 
 A tiny app to split a group of people into pairs.
+The app is live at: [https://yongpeishi.github.io/pair-generator/](https://yongpeishi.github.io/pair-generator/index.html)
 
 ## Setup
 

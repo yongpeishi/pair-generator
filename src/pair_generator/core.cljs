@@ -23,13 +23,13 @@
 (defn root-element [state]
   [:div
    [:h1 "Generate Pair"]
-   [:p "Insert names (comma separated):"]
+   [:p "Insert names (one name per line):"]
    [:div
-    [:input {:type "text"
-             :value (:input state)
-             :on-change update-input}]
-    [:button {:type "submit"
-              :on-click update-pair}
+    [:textarea {:rows      (+ 2 (count (str/split (:input state) #"\n")))
+                :value     (:input state)
+                :on-change update-input}]
+    [:button.submit {:type     "submit"
+                     :on-click update-pair}
      "Generate"]]
 
    (if (not-empty (:pairs state))
