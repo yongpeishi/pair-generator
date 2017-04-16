@@ -9,7 +9,7 @@
 
 (deftest pad-with-some-string
   (let [result (sut/generate-pair "a\nb\nc")]
-    (is (= (last (last result)) "self :("))))
+    (is (= (last (last result)) "no one :("))))
 
 (deftest remove-repeated-name
   (let [result (sut/generate-pair "a\na\na\nb")]

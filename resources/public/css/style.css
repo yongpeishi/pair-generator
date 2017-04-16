@@ -1,11 +1,37 @@
+body {
+    font-family: Helvetica, Arial, Sans-Serif;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    max-width: 400px;
+}
+
+textarea {
+    width: 400px;
+}
+
 button.submit {
     display: block;
 }
 
 .result {
-    margin: 10px 0;
+    margin: 30px 0;
+}
+
+.result .header {
+    margin: 5px 0;
+}
+
+.result-table {
     padding: 10px;
     border-radius: 15px;
-    background-color: #d3b193;
+    background-color: #bbb3b3;
 }
+
+td {
+    padding-left: 15px;
+}
+
 

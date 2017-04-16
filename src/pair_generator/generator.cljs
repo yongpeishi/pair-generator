@@ -10,6 +10,6 @@
                           (remove str/blank?)
                           shuffle)
           per-group  2
-          padding    "self :("]
+          padding    "no one :("]
       (partition per-group per-group [padding] input-data))))
 

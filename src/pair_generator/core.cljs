@@ -21,9 +21,9 @@
   (swap! app-state assoc :input event.target.value))
 
 (defn root-element [state]
-  [:div
-   [:h1 "Generate Pair"]
-   [:p "Insert names (one name per line):"]
+  [:div.container
+   [:h1 "Pair Generator"]
+   [:p "To generate random pairs, insert a list of names (each name on a seperate line) in the text box below:"]
    [:div
     [:textarea {:rows      (+ 2 (count (str/split (:input state) #"\n")))
                 :value     (:input state)
@@ -32,11 +32,17 @@
                      :on-click update-pair}
      "Generate"]]
 
-   (if (not-empty (:pairs state))
+   (when (not-empty (:pairs state))
      [:div.result
-      (for [pair (:pairs state)]
-        [:p {:key (hash pair)}
-         (str/join " - " pair)])])])
+      [:p.header "These are your pairs:"]
+      [:div.result-table
+       [:table
+        [:tbody
+         (for [pair (:pairs state)
+               :let [[first second] pair]]
+           [:tr {:key (hash pair)}
+            [:td first]
+            [:td second]])]]]])])
 
 (defn wrapper [app-state]
   (root-element @app-state))
